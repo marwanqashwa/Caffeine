@@ -1,5 +1,6 @@
 package com.example.caffeine.screen.homeselectcoffeeorder
 
+import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -14,28 +15,13 @@ fun NavGraphBuilder.homeSelectCoffeeOrderRoute(navController: NavController) {
     val viewModel = HomeSelectCoffeeOrderViewModel()
     composable(
         route = Screen.HomeSelectCoffeeOrder.route,
-        enterTransition = {
-            fadeIn(animationSpec = tween(1000))
-        },
-        exitTransition = {
-            fadeOut(animationSpec = tween(500))
-        },
-        popEnterTransition = {
-            fadeIn(animationSpec = tween(300))
-        },
-        popExitTransition = {
-            fadeOut(animationSpec = tween(500))
-        },
-
-        ) { backStackEntry ->
+        enterTransition = { slideIntoContainer(SlideDirection.Up, animationSpec = tween(100))  },
+        exitTransition = { fadeOut(animationSpec = tween(300)) },
+    ) { backStackEntry ->
         val coffeeType = backStackEntry.arguments?.getString("coffeeType") ?: "Unknown"
-        HomeSelectCoffeeOrderScreen(
-            coffeeTypeTitle = coffeeType,
-            onBackClick = {
-                navController.popBackStack()
-            },
-            viewModel = viewModel,
-            onContinueClick = {
+        HomeSelectCoffeeOrderScreen(coffeeTypeTitle = coffeeType, onBackClick = {
+            navController.popBackStack()
+        }, viewModel = viewModel, onContinueClick = {
             navController.navigateToHomeLoadingOrderScreen(it)
         })
     }

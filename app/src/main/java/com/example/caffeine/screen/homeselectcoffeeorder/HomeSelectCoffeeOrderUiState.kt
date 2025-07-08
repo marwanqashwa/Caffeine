@@ -1,8 +1,8 @@
 package com.example.caffeine.screen.homeselectcoffeeorder
 
 data class HomeSelectCoffeeOrderUiState(
-    val selectedCupSize: CupSize = CupSize.MEDIUM,
-    val selectedCaffeineSize: CaffeineSize = CaffeineSize.MEDIUM,
+    val selectedCupSize: CupSize = CupSize.SMALL,
+    val selectedCaffeineSize: CaffeineSize = CaffeineSize.LOW,
     val isTopBarVisible: Boolean = true
 )
 

@@ -6,7 +6,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -43,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -57,6 +58,7 @@ import com.example.caffeine.screen.drawShadowUnderCircle
 import com.example.caffeine.ui.theme.CaffeineBlack
 import com.example.caffeine.ui.theme.CaffeineWhite
 import com.example.caffeine.ui.theme.sniglet_normal
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -129,11 +131,12 @@ private fun HomeSelectCoffeeOrderContent(
     }
     val coffeeSize by animateDpAsState(
         targetValue = when (uiState.selectedCupSize) {
-            CupSize.SMALL -> 100.dp
-            CupSize.MEDIUM -> 130.dp
+            CupSize.SMALL -> 98.dp
+            CupSize.MEDIUM -> 125.dp
             CupSize.LARGE -> 140.dp
         }, animationSpec = tween(500)
     )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -144,23 +147,21 @@ private fun HomeSelectCoffeeOrderContent(
             .padding(vertical = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Column(
-            modifier = Modifier.defaultMinSize(minHeight = 65.dp)
+        AnimatedVisibility(
+            visible = uiState.isTopBarVisible,
+            exit = slideOutVertically(tween(300), targetOffsetY = { -it }),
+            enter = slideInVertically(tween(300)),
         ) {
-            AnimatedVisibility(
-                visible = uiState.isTopBarVisible,
-                exit = slideOutVertically(tween(300), targetOffsetY = { -it }),
-                enter = scaleIn(tween(1000))
-            ) {
-                TopBarBack(
-                    title = coffeeTypeTitle,
-                    onBackClick = onBackClick,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp)
-                )
-            }
+            TopBarBack(
+                title = coffeeTypeTitle,
+                onBackClick = onBackClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .defaultMinSize(minHeight = 65.dp)
+                    .padding(bottom = 16.dp)
+            )
         }
+        Spacer(Modifier.weight(1f))
         CupWithAnimationSection(
             uiState = uiState,
             coffeeSize = coffeeSize,
@@ -196,14 +197,22 @@ private fun ButtonContinueSection(
     Button(
         modifier = modifier
             .defaultMinSize(minHeight = 56.dp)
-            .padding(horizontal = 32.dp, vertical = 18.dp),
-        colors = ButtonColors(
+            .padding(horizontal = 32.dp, vertical = 18.dp)
+            .background(
+                color = CaffeineBlack, shape = CircleShape
+            )
+            .shadow(
+                elevation = 5.dp,
+                spotColor = CaffeineBlack,
+                ambientColor = CaffeineBlack,
+                shape = CircleShape
+            ), colors = ButtonColors(
             containerColor = CaffeineBlack,
             contentColor = CaffeineWhite,
             disabledContainerColor = CaffeineWhite,
             disabledContentColor = CaffeineBlack
         ), onClick = {
-            coroutineScope.launch {
+            coroutineScope.launch(Dispatchers.Main) {
                 hideTopBar()
                 delay(500)
                 hideTopBar()
@@ -373,7 +382,7 @@ private fun CupWithAnimationSection(
             fontSize = 14.sp,
             lineHeight = 18.sp,
             letterSpacing = 0.25.sp,
-            color = CaffeineBlack,
+            color = Color(0x99000000),
             modifier = Modifier.padding(top = 64.dp, end = 16.dp)
         )
         Image(
@@ -401,8 +410,8 @@ private fun CupWithAnimationSection(
                 painter = painterResource(R.drawable.logo),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(64.dp)
                     .align(Alignment.Center)
+                    .size(cupWidth * 0.3f)
             )
         }
     }
@@ -420,7 +429,7 @@ private fun TopBarBack(
                 .padding(end = 12.dp)
                 .size(48.dp)
                 .clip(CircleShape)
-                .background(color = CaffeineWhite)
+                .background(color = Color(0xFFF5F5F5))
                 .clickable(onClick = onBackClick)
         ) {
             Icon(
@@ -489,19 +498,19 @@ private fun SelectorOption(
             visible = selected,
             enter = fadeIn(tween(500)),
             exit = fadeOut(tween(1000)),
+            modifier = Modifier.drawShadowUnderCircle(
+                    shadowColor = "#80B94B23",
+                    shadowRadius = 40f,
+                    leftOffset = 60f,
+                    topOffset = 0f,
+                    rightOffset = 60f,
+                    bottomOffset = 50f
+                )
         ) {
             Box(
                 modifier = Modifier
                     .defaultMinSize(
                         minWidth = 40.dp, minHeight = 40.dp
-                    )
-                    .drawShadowUnderCircle(
-                        shadowColor = "#80B94B23",
-                        shadowRadius = 40f,
-                        leftOffset = 60f,
-                        topOffset = 0f,
-                        rightOffset = 60f,
-                        bottomOffset = 50f
                     )
                     .clip(CircleShape)
                     .background(color = Color(0xFF7C351B))

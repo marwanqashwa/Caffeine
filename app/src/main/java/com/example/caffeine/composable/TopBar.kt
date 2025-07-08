@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.caffeine.R
@@ -41,7 +42,7 @@ fun TopBar(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .size(48.dp)
                 .clip(CircleShape)
-                .background(color = CaffeineWhite)
+                .background(color = Color(0xFFF5F5F5))
                 .clickable(onClick = {})
         ) {
             Icon(

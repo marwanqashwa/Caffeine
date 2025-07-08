@@ -38,7 +38,7 @@ fun NavGraphBuilder.homeConfirmOrderSnackRoute(navController: NavController) {
             snackID = snackID, onConfirmClick = {
                 navController.popBackStack(Screen.HomeOnBoarding.route, inclusive = false)
             },onCloseClick = {
-                navController.popBackStack()
+                navController.popBackStack(Screen.HomeOnBoarding.route, inclusive = false)
             })
     }
 }

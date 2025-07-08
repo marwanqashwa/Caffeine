@@ -13,13 +13,13 @@ fun NavGraphBuilder.homeTakeSnackRoute(navController: NavController) {
     composable(
         route = Screen.HomeTakeSnack.route,
         enterTransition = {
-            fadeIn(animationSpec = tween(300))
+            fadeIn(animationSpec = tween(1000))
         },
         exitTransition = {
             shrinkOut(animationSpec = tween(1000))
         },
         popEnterTransition = {
-            fadeIn(animationSpec = tween(300))
+            fadeIn(animationSpec = tween(1000))
         },
         popExitTransition = {
             shrinkOut(animationSpec = tween(1000))
@@ -27,7 +27,7 @@ fun NavGraphBuilder.homeTakeSnackRoute(navController: NavController) {
     ) {
         HomeTakeSnack(
             onCloseClick = {
-                navController.popBackStack(Screen.HomeCoffeReady.route, inclusive = false)
+                navController.popBackStack(Screen.HomeOnBoarding.route, inclusive = false)
             },
             onSnackClick = {
             navController.navigateToHomeConfirmOrderSnackScreen(it)

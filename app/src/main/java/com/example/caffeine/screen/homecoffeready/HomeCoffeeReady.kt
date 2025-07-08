@@ -37,6 +37,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -83,7 +84,7 @@ fun HomeCoffeeReady(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
-                    .background(color = CaffeineWhite)
+                    .background(color = Color(0xFFF5F5F5))
                     .clickable(onClick = onCloseClick)
             ) {
                 Icon(
@@ -144,14 +145,23 @@ fun HomeCoffeeReady(
             AnimatedVisibility(
                 visible = isVisible, enter = slideInVertically(
                     initialOffsetY = { it }, animationSpec = tween(
-                        durationMillis = 300, delayMillis = 300
+                        durationMillis = 1000
                     )
                 )
             ) {
                 Button(
                     modifier = Modifier
                         .defaultMinSize(minHeight = 56.dp)
-                        .padding(horizontal = 32.dp, vertical = 18.dp), colors = ButtonColors(
+                        .padding(horizontal = 32.dp, vertical = 18.dp)
+                        .background(
+                            color = CaffeineBlack, shape = CircleShape
+                        )
+                        .shadow(
+                            elevation = 5.dp,
+                            spotColor = CaffeineBlack,
+                            ambientColor = CaffeineBlack,
+                            shape = CircleShape
+                        ), colors = ButtonColors(
                         containerColor = CaffeineBlack,
                         contentColor = CaffeineWhite,
                         disabledContainerColor = CaffeineWhite,
@@ -182,7 +192,7 @@ fun HomeCoffeeReady(
         AnimatedVisibility(
             visible = isVisible, enter = slideInVertically(
                 initialOffsetY = { -it }, animationSpec = tween(
-                    durationMillis = 300, delayMillis = 300
+                    durationMillis = 1000
                 )
             ), modifier = Modifier.offset(y = (-210).dp)
         ) {

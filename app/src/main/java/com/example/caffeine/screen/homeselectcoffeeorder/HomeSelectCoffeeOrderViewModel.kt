@@ -17,5 +17,4 @@ class HomeSelectCoffeeOrderViewModel: ViewModel() {
     fun hideTopBar(){
         _uiState.value = _uiState.value.copy(isTopBarVisible = !_uiState.value.isTopBarVisible)
     }
-
 }

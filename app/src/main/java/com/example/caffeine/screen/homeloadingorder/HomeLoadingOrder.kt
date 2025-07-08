@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.sp
 import com.example.caffeine.R
 import com.example.caffeine.composable.LineLoading
 import com.example.caffeine.screen.homeselectcoffeeorder.CupSize
-import com.example.caffeine.ui.theme.CaffeineBlack
 import com.example.caffeine.ui.theme.sniglet_extra_bold
 import com.example.caffeine.ui.theme.sniglet_normal
 import kotlinx.coroutines.delay
@@ -113,8 +112,7 @@ fun HomeLoadingOrder(
                 letterSpacing = 0.25.sp,
                 color = Color(0xFF7C351B),
             )
-            TextSeperator(
-            )
+            TextSeperator()
             Text(
                 text = "FF",
                 textAlign = TextAlign.Start,
@@ -181,7 +179,7 @@ private fun CupSection(
             fontSize = 14.sp,
             lineHeight = 18.sp,
             letterSpacing = 0.25.sp,
-            color = CaffeineBlack,
+            color = Color(0x99000000),
             modifier = Modifier.padding(top = 64.dp, end = 16.dp)
         )
 

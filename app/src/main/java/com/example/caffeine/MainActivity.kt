@@ -23,7 +23,9 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 Scaffold {
                     NavHost(
-                        modifier = Modifier.fillMaxSize().padding(it),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(it),
                         navController = navController,
                         startDestination = Screen.HomeOnBoarding.route
                     ) {

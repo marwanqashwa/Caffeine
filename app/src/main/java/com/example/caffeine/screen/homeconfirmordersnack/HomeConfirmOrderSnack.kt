@@ -32,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -76,7 +77,7 @@ fun HomeConfirmOrderSnack(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
-                    .background(color = CaffeineWhite)
+                    .background(color = Color(0xFFF5F5F5))
                     .clickable(onClick = onCloseClick)
             ) {
                 Icon(
@@ -121,7 +122,7 @@ fun HomeConfirmOrderSnack(
                 .size(300.dp, 310.dp)
         ) {
             AnimatedVisibility(
-                visible = isVisible, enter = fadeIn(tween(1000)) + scaleIn(tween(1000))
+                visible = isVisible, enter = fadeIn(tween(500)) + scaleIn(tween(500))
             ) {
                 Image(
                     painter = painterResource(snacks[snackID]),
@@ -157,8 +158,16 @@ fun HomeConfirmOrderSnack(
         Button(
             modifier = Modifier
                 .defaultMinSize(minHeight = 56.dp)
-                .padding(horizontal = 32.dp, vertical = 18.dp),
-            colors = ButtonColors(
+                .padding(horizontal = 32.dp, vertical = 18.dp)
+                .background(
+                    color = CaffeineBlack, shape = CircleShape
+                )
+                .shadow(
+                    elevation = 5.dp,
+                    spotColor = CaffeineBlack,
+                    ambientColor = CaffeineBlack,
+                    shape = CircleShape
+                ), colors = ButtonColors(
                 containerColor = CaffeineBlack,
                 contentColor = CaffeineWhite,
                 disabledContainerColor = CaffeineWhite,

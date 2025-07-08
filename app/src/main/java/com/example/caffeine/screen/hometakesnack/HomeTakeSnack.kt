@@ -27,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalConfiguration
@@ -66,7 +67,7 @@ fun HomeTakeSnack(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
-                    .background(color = CaffeineWhite)
+                    .background(color = Color(0xFFF5F5F5))
                     .clickable(onClick = onCloseClick)
             ) {
                 Icon(
@@ -161,8 +162,15 @@ fun SnackPager(
                     translationX = offsetX
                     translationY = offsetY
                 }
-                .size(260.dp, 274.dp)
+                .size(260.dp, 274.dp).shadow(
+                    elevation =20.dp,
+                    spotColor = Color(0x1F000000).copy(alpha = 0.3f),
+                    ambientColor = Color(0x1F000000).copy(alpha = 0.3f),
+                    shape = RoundedCornerShape(32.dp),
+                    clip = true
+                )
                 .background(Color(0xFFF5F5F5), RoundedCornerShape(32.dp))
+
                 .clickable(
                     onClick = { onSnackClick(page) },
                     indication = null,
