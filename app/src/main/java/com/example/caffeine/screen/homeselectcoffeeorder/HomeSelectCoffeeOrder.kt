@@ -150,7 +150,7 @@ private fun HomeSelectCoffeeOrderContent(
         AnimatedVisibility(
             visible = uiState.isTopBarVisible,
             exit = slideOutVertically(tween(300), targetOffsetY = { -it }),
-            enter = slideInVertically(tween(300)),
+            enter = fadeIn(tween(10000)),
         ) {
             TopBarBack(
                 title = coffeeTypeTitle,
@@ -214,7 +214,7 @@ private fun ButtonContinueSection(
         ), onClick = {
             coroutineScope.launch(Dispatchers.Main) {
                 hideTopBar()
-                delay(500)
+                delay(700)
                 hideTopBar()
                 onContinueClick(uiState.selectedCupSize.size)
             }
